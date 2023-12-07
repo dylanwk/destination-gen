@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import {Selector} from "@/app/components/selector";
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,8 +17,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <html lang="en" data-theme="coffee">
+      <body className="bg-neutral">
+      <div className="flex flex-col items-center">
+        <div className="max-w-screen-md min-h-[100vh] w-full flex flex-col">
+
+          <Selector/>
+
+          {children}
+
+        </div>
+      </div>
+      </body>
+      </html>
   )
 }

@@ -13,6 +13,6 @@ module.exports = {
   },
   plugins: [require("tailwindcss-animation-delay"), require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {
-    themes: ["synthwave"],
+    themes: ["coffee"],
   },
 }
