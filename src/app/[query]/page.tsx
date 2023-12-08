@@ -1,35 +1,13 @@
 
-/*- import { config } from 'dotenv';
-config(); 
-
 import OpenAI from "openai";
-
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
-
-
-
-export default async function SugggestListPage(props: {
-    params: { query: string };
-}) {
-
-    const chatCompletion = await openai.chat.completions.create({
-        messages: [{ role: "user", content: "Say this is a test" }],
-        model: "gpt-3.5-turbo",
-    });
-
-    
-
-}  **/
 import { DestinationItem, SearchKeys } from "@/types";
 import Image from "next/image";
 
-const { Configuration, OpenAIApi } = require("openai");
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+
+
+const openai = new OpenAI({
+    apiKey: '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',
 });
-const openai = new OpenAIApi(configuration);
 
 export default async function RequestPage(props: {
   params: { query: string };
@@ -48,17 +26,17 @@ export default async function RequestPage(props: {
   if (budget) textPrompt += ` with budget of ${budget}$ per month`;
   textPrompt += " and explain why. In format Location - Description";
 
-  const response = await openai.createChatCompletion({
+  const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [{ role: "user", content: textPrompt }],
     temperature: 0,
     max_tokens: 2000,
   });
 
-  console.log(response.data.choices[0].message.content)
+  console.log(response.choices[0].message.content)
 
   const [, ...entries] = JSON.stringify(
-    response.data.choices[0].message.content
+    response.choices[0].message.content
   ).split("\\n\\n");
 
   const destinations: DestinationItem[] = [];
@@ -67,13 +45,29 @@ export default async function RequestPage(props: {
     const [locationWithNumber, description] = entry.split(" - ");
     const [, location] = locationWithNumber.split(".");
 
-    const image = await openai.createImage({
+    const response = await openai.images.generate({
+      model: "dall-e-3",
       prompt: "Best place in" + location,
       n: 1,
-      size: "512x512",
+      size: "1024x1024",
     });
-
-    destinations.push({ location, description, img: image.data.data[0].url });
+    
+    console.log("Response:", response);
+    
+    if (response && response.data && response.data.length > 0) {
+      const imageData = response.data[0];
+      
+      if (imageData && typeof imageData.url === 'string') {
+        const imageURL = imageData.url;
+        console.log("Image URL:", imageURL);
+    
+        destinations.push({ location, description, img: imageURL });
+      } else {
+        console.error("Invalid or missing 'url' property in the response data.");
+      }
+    } else {
+      console.error("Invalid or empty response:", response);
+    }
   }
 
   return (
