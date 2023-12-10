@@ -33,7 +33,7 @@ export default async function RequestPage(props: {
     max_tokens: 2000,
   });
 
-  console.log(response.choices[0].message.content)
+  //console.log(response.choices[0].message.content)
 
   const [, ...entries] = JSON.stringify(
     response.choices[0].message.content
@@ -52,14 +52,14 @@ export default async function RequestPage(props: {
       size: "1024x1024",
     });
     
-    console.log("Response:", response);
+    //console.log("Response:", response);
     
     if (response && response.data && response.data.length > 0) {
       const imageData = response.data[0];
       
       if (imageData && typeof imageData.url === 'string') {
         const imageURL = imageData.url;
-        console.log("Image URL:", imageURL);
+        //console.log("Image URL:", imageURL);
     
         destinations.push({ location, description, img: imageURL });
       } else {
