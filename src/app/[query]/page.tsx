@@ -2,6 +2,7 @@
 import OpenAI from "openai";
 import { DestinationItem, SearchKeys } from "@/types";
 import Image from "next/image";
+import { getDestinationImage } from "@/imageGetter";
 
 
 
@@ -45,6 +46,7 @@ export default async function RequestPage(props: {
     const [locationWithNumber, description] = entry.split(" - ");
     const [, location] = locationWithNumber.split(".");
 
+    /*
     const response = await openai.images.generate({
       model: "dall-e-3",
       prompt: "Best place in" + location,
@@ -52,7 +54,7 @@ export default async function RequestPage(props: {
       size: "1024x1024",
     });
     
-    //console.log("Response:", response);
+    
     
     if (response && response.data && response.data.length > 0) {
       const imageData = response.data[0];
@@ -68,7 +70,15 @@ export default async function RequestPage(props: {
     } else {
       console.error("Invalid or empty response:", response);
     }
-  }
+  } -> Dalle image generator code
+  */  
+
+  const apiKey = 'AIzaSyC0CuwQE_EPaAFRbCKOHmMzGbosguOEr74';
+  const cx = '123dc09aea7fb4e5c';
+  
+  const imageUrl: string | null = await getDestinationImage(location, apiKey, cx);
+  destinations.push({ location, description, img: imageUrl });
+}
 
   return (
       <div className="flex flex-col gap-4">
