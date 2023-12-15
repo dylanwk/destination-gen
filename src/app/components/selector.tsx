@@ -35,7 +35,7 @@ export const Selector = () => {
         <input
           type="text"
           name={SearchKeys.Location}
-          placeholder="🌍 location *"
+          placeholder="🌍 Location *"
           defaultValue={location}
           className="input input-ghost max-w-[150px]"
         />
@@ -45,7 +45,7 @@ export const Selector = () => {
         <select
           name={SearchKeys.Month}
           className="select select-ghost"
-          defaultValue={month || '📅 month *'}
+          defaultValue={month || '📅 Month *'}
         >
           <option disabled>📅 month *</option>
 
@@ -65,9 +65,9 @@ export const Selector = () => {
         <select
           name={SearchKeys.Activity}
           className="select select-ghost"
-          defaultValue={activity || '🏄‍ some activities'}
+          defaultValue={activity || 'Activities'}
         >
-          <option disabled>🏄‍ some activities</option>
+          <option disabled>Activities</option>
           <option>Snowboarding</option>
           <option>Skiing</option>
           <option>Surfing</option>
@@ -82,7 +82,7 @@ export const Selector = () => {
         <input
           name={SearchKeys.Budget}
           type="number"
-          placeholder="🤑 your budget in $/month"
+          placeholder="Budget in $/month"
           className="input input-ghost w-full max-w-[250px]"
           defaultValue={budget}
         />

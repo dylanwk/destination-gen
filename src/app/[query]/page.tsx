@@ -22,10 +22,10 @@ export default async function RequestPage(props: {
 
   if (!location || !month) return <p>No data</p>;
 
-  let textPrompt = `Make a list of top 5 places to travel as digital nomad from ${location} in ${month}`;
+  let textPrompt = `Make a list of top 5 places to travel as a digital nomad from ${location} in ${month}`;
   if (activity) textPrompt += ` to do ${activity}`;
   if (budget) textPrompt += ` with budget of ${budget}$ per month`;
-  textPrompt += " and explain why. In format Location - Description";
+  textPrompt += " and explain why. In format Location - Description. Make description around 60 words.";
 
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
@@ -46,37 +46,12 @@ export default async function RequestPage(props: {
     const [locationWithNumber, description] = entry.split(" - ");
     const [, location] = locationWithNumber.split(".");
 
-    /*
-    const response = await openai.images.generate({
-      model: "dall-e-3",
-      prompt: "Best place in" + location,
-      n: 1,
-      size: "1024x1024",
-    });
-    
-    
-    
-    if (response && response.data && response.data.length > 0) {
-      const imageData = response.data[0];
-      
-      if (imageData && typeof imageData.url === 'string') {
-        const imageURL = imageData.url;
-        //console.log("Image URL:", imageURL);
-    
-        destinations.push({ location, description, img: imageURL });
-      } else {
-        console.error("Invalid or missing 'url' property in the response data.");
-      }
-    } else {
-      console.error("Invalid or empty response:", response);
-    }
-  } -> Dalle image generator code
-  */  
 
   const apiKey = 'AIzaSyC0CuwQE_EPaAFRbCKOHmMzGbosguOEr74';
   const cx = '123dc09aea7fb4e5c';
   
-  const imageUrl: string | null = await getDestinationImage(location, apiKey, cx);
+  //const imageUrl: string | null = await getDestinationImage(location, apiKey, cx);
+  const imageUrl = 'https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68'
   destinations.push({ location, description, img: imageUrl });
 }
 
@@ -91,9 +66,14 @@ export default async function RequestPage(props: {
 
           <div className="card-body">
             <h2 className="card-title">{location}</h2>
-            <p>{description}</p>
+            <p>{description} </p>
+            <div className="card-actions justify-end">
+              <button className="btn btn-primary top-2">Learn More</button>
+            </div>
           </div>
+          
         </div>
+        
       ))}
     </div>
   );
