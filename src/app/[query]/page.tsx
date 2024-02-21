@@ -7,7 +7,7 @@ import { getDestinationImage } from "@/imageGetter";
 
 
 const openai = new OpenAI({
-    apiKey: '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',
+    apiKey: process.env.OPENAI_API_KEY
 });
 
 export default async function RequestPage(props: {
@@ -16,16 +16,17 @@ export default async function RequestPage(props: {
   const pathNameParams = new URLSearchParams(
     decodeURIComponent(props.params.query)
   );
+  console.log(pathNameParams)
   const { location, month, budget, activity } = Object.fromEntries(
     pathNameParams
-  ) as Record<SearchKeys, string>;
+  ) as Record<SearchKeys, string>
 
   if (!location || !month) return <p>No data</p>;
 
-  let textPrompt = `Make a list of top 5 places to travel as a digital nomad from ${location} in ${month}`;
+  let textPrompt = `Make a list of the top place to travel as a digital nomad from ${location} in ${month}`;
   if (activity) textPrompt += ` to do ${activity}`;
-  if (budget) textPrompt += ` with budget of ${budget}$ per month`;
-  textPrompt += " and explain why. In format Location - Description. Make description around 60 words.";
+  if (budget) textPrompt += ` with budget of ${budget}$ per month`
+  textPrompt += " and explain why. In format Location - Description. Make description around 60 words."
 
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
@@ -50,8 +51,8 @@ export default async function RequestPage(props: {
   const apiKey = 'AIzaSyC0CuwQE_EPaAFRbCKOHmMzGbosguOEr74';
   const cx = '123dc09aea7fb4e5c';
   
-  //const imageUrl: string | null = await getDestinationImage(location, apiKey, cx);
-  const imageUrl = 'https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68'
+  const imageUrl: string | null = await getDestinationImage(location, apiKey, cx);
+  //const imageUrl = 'https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68'
   destinations.push({ location, description, img: imageUrl });
 }
 
