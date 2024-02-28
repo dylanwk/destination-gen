@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Run npm run format before committing
+npm run format
