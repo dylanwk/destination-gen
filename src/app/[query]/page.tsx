@@ -69,10 +69,11 @@ export default async function RequestPage(props: {
             <h2 className="card-title">{location}</h2>
             <p>{description} </p>
             <div className="card-actions justify-end">
-              <a href='/about'><button className="btn btn-primary top-2">Learn More</button></a>
+              <a href="/about">
+                <button className="btn btn-primary top-2">Learn More</button>
+              </a>
             </div>
           </div>
-
         </div>
       ))}
     </div>
