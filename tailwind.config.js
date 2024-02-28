@@ -1,18 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
- 
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+
     // Or if using `src` directory:
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
-    extend: {},
+    extend: {}
   },
-  plugins: [require("tailwindcss-animation-delay"), require("@tailwindcss/typography"), require("daisyui")],
+  plugins: [
+    require('tailwindcss-animation-delay'),
+    require('@tailwindcss/typography'),
+    require('daisyui')
+  ],
   daisyui: {
-    themes: ["coffee"],
-  },
-}
+    themes: ['coffee']
+  }
+};
